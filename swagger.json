@@ -1,0 +1,1625 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.9",
+        "title": "REST API COMERCIO",
+        "description": "<html><body>Documentacion del proyecto del <b>comercio</b></body></html>",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "3.132.110.124",
+    "basePath": "",
+    "tags": [
+        {
+            "name": "Usuarios",
+            "description": "API para obtener informacion de los usuarios de el comercio"
+        },
+        {
+            "name": "Productos",
+            "description": "API para ver la informacion de los productos de el comercio"
+        },
+        {
+            "name": "Tipos de Usuario",
+            "description": "API para obtener información de los roles de usuario que existen en  el comercio"
+        },
+        {
+            "name": "Proveedores",
+            "description": "API para ver la información de los proveedores de el comercio"
+        },
+        {
+            "name": "Inventario",
+            "description": "API para ver la información del inventarios de el comercio"
+        },
+        {
+            "name": "Carrito",
+            "description": "API para ver la información de los carritos de el comercio"
+        },
+        {
+            "name": "Ventas",
+            "description": "API para ver la información de ventas de el comercio"
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/api/usuarios/mostrarTodosUsuarios/": {
+            "get": {
+                "tags": ["Usuarios"],
+                "summary": "Listado de todos los usuarios existentes en el comercio.",
+                "description": "<p>Servicio que devuelve la información detallada de todos los usuarios que existen en el comercio.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los usuarios existentes en el comercio?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_usuario": 2,
+                                    "nombre": "Jesus Rolando HernandezGarcia",
+                                    "correo": "maiki@gmail.com",
+                                    "contrasena": "MaikieslaHonda",
+                                    "TipoUsuario": 1
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Usuarios"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [{
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }]
+            }
+        },
+        "/api/Usuarios/crearUsuario": {
+            "post": {
+                "summary": "Creando nuevo usuario",
+                "operationId": "create",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "Usuario",
+                        "in": "body",
+                        "description": "Usuario agregado con exito",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoUsuario"
+                        }
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ],
+                "tags": ["Usuarios"],
+                "responses": {
+                    "200": {
+                        "description": "Se añadio nuevo usuario"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/usuarios/obtenerUsuario/{id}": {
+            "get": {
+                "tags": ["Usuarios"],
+                "summary": "Informacion asociada al usuario, si es que existe en el comercio",
+                "description": "<p>Servicio que devuelve la información detallada del usuario solicitado</p><p>&nbsp;</p><p><em><strong>¿Cuál es el usuario de este id?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_usuario": 2,
+                                    "nombre": "Jesus Rolando HernandezGarcia",
+                                    "correo": "maiki@gmail.com",
+                                    "contrasena": "MaikieslaHonda",
+                                    "TipoUsuario": 1
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Usuario"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del usuario",
+                        "type": "number",
+                        "default": "4"
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ]
+            }
+        },
+        "/api/usuarios/actualizarUsuario/{id}": {
+            "put": {
+                "summary": "Actualizar la informaciòn de un usuario del comercio",
+                "description": "<p>Servicio que permite editar la informaciòn del usuario que esta registrado en el comercio , dado el id el mismo </p><p>&nbsp;</p>",
+                "operationId": "update",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del usuario",
+                        "type": "number",
+                        "default": "4"
+                    },
+                    {
+                        "name": "Usuario",
+                        "in": "body",
+                        "description": "Nombre del usuario",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoUsuario"
+                        }
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ],
+                "tags": ["Usuarios"],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/usuarios/eliminarUsuario/{id}": {
+            "delete": {
+                "tags": ["Usuarios"],
+                "summary": "Eliminar el usuario del comercio a travez de su identificador",
+                "description": "<p>Servicio que elimina el usuario a travez de su identificador enviado</p><p>&nbsp;</p><p><em><strong>¿Fué una ejecución exitoso?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del usuario",
+                        "type": "number",
+                        "default": "8"
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ]
+            }
+        },
+        "/api/productos/MostrarTodosProductos/": {
+            "get": {
+                "tags": ["Productos"],
+                "summary": "Listado de todos los productos que existen en el comercio",
+                "description": "<p>Servicio que devuelve toda la informacion de los productos dados de alta en el comercio.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los productos que hay en el comercio?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_producto": 9,
+                                    "nombre": "Humicel",
+                                    "descripcion": "HUMICEL es un producto a base de ácidos húmicos, principales constituyentes de la materia orgánica en estado avanzado de descomposición",
+                                    "precio": 2.499,
+                                    "cantidad": 27,
+                                    "proveedor_id": 4
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Productos"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [{
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }]
+            }
+        },
+        "/api/productos/agregarProducto": {
+            "post": {
+                "summary": "Agregando una Producto",
+                "operationId": "create",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "Producto",
+                        "in": "body",
+                        "description": "Producto agregado exitosamente",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoProducto"
+                        }
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ],
+                "tags": ["Productos"],
+                "responses": {
+                    "200": {
+                        "description": "El producto fue añadido satisfactoriamente"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/productos/obtenerProducto/{id}": {
+            "get": {
+                "tags": ["Productos"],
+                "summary": "Informacion del producto si es que existe en el comercio",
+                "description": "<p>Servicio que devuelve toda la informacion del producto solicitado</p><p>&nbsp;</p><p><em><strong>¿Cuál es el producto de este id?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_producto": 9,
+                                    "nombre": "Humicel",
+                                    "descripcion": "HUMICEL es un producto a base de ácidos húmicos, principales constituyentes de la materia orgánica en estado avanzado de descomposición",
+                                    "precio": 2.499,
+                                    "cantidad": 27,
+                                    "proveedor_id": 4
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Producto"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del prodcuto",
+                        "type": "number",
+                        "default": "1"
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ]
+            }
+        },
+        "/api/productos/actualizarProducto/{id}": {
+            "put": {
+                "summary": "Actualizar informacion del producto del comercio",
+                "description": "<p>Servicio que permite cambiar la informacion de un producto del comercio, atravez de su id </p><p>&nbsp;</p>",
+                "operationId": "update",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del producto",
+                        "type": "number",
+                        "default": "4"
+                    },
+                    {
+                        "name": "Producto",
+                        "in": "body",
+                        "description": "Nombre del producto",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoProducto"
+                        }
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ],
+                "tags": ["Productos"],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/productos/eliminarProducto/{id}": {
+            "delete": {
+                "tags": ["Productos"],
+                "summary": "Eliminar un producto de la tienda a travez de su identificador valido",
+                "description": "<p>Servicio que borra un producto a travez de su identificador enviado</p><p>&nbsp;</p><p><em><strong>¿Fué una ejecución exitosa?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del prdocuto",
+                        "type": "number",
+                        "default": "8"
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ]
+            }
+        },
+        "/api/tUsuarios/MostrarTodosTipos/": {
+            "get": {
+                "tags": ["Tipos de Usuario"],
+                "summary": "Listado de todos los roles de los usuarios que existen  en el comercio.",
+                "description": "<p>Servicio que devuelve la información detallada de todos los roles de los usuarios que existen en el comercio.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los roles existentes en el comercio?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_tipo": 1,
+                                    "tipo": "Administrador"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/TiposUsuarios"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [{
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }]
+            }
+        },
+        "/api/tUsuarios/crearTipo": {
+            "post": {
+                "summary": "Creando nuevo tipo de Usuario",
+                "operationId": "create",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "Tipo",
+                        "in": "body",
+                        "description": "Tipo de usuario agregado exitosamente",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoTipoUsuario"
+                        }
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ],
+                "tags": ["Tipos de Usuario"],
+                "responses": {
+                    "200": {
+                        "description": "Insertado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/tUsuarios/obtenerTipo/{id}": {
+            "get": {
+                "tags": ["Tipos de Usuario"],
+                "summary": "Informacion asociada al rol del usuario si es que existe en el comercio",
+                "description": "<p>Servicio que devuelve la información detallada del rol solicitado</p><p>&nbsp;</p><p><em><strong>¿Cuál es el rol de este id?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_tipo": 1,
+                                    "tipo": "Administrador"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/TipoUsuario"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del tipo de usuario",
+                        "type": "number",
+                        "default": "1"
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ]
+            }
+        },
+        "/api/tUsuarios/actualizarTipo/{id}": {
+            "put": {
+                "summary": "Actualizar la informaciòn del rol del usario  del comercio",
+                "description": "<p>Servicio que permite editar la informaciòn del rol del usuario perteneciente al comercio, dado el id del mismo </p><p>&nbsp;</p>",
+                "operationId": "update",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del tipo de usuario",
+                        "type": "number",
+                        "default": "4"
+                    },
+                    {
+                        "name": "Rol",
+                        "in": "body",
+                        "description": "Nombre del rol",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoTipoUsuario"
+                        }
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ],
+                "tags": ["Tipos de Usuario"],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/tUsuarios/eliminarTipo/{id}": {
+            "delete": {
+                "tags": ["Tipos de Usuario"],
+                "summary": "Eliminar el rol de usuario del comercio dado su identificador",
+                "description": "<p>Servicio que elimina un rol dado el identificador enviado</p><p>&nbsp;</p><p><em><strong>¿Fué una ejecución exitosa?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del tipo",
+                        "type": "number",
+                        "default": "4"
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ]
+            }
+        },
+        "/api/proveedores/mostrarTodosProveedores/": {
+            "get": {
+                "tags": ["Proveedores"],
+                "summary": "Listado de todos los proveedores que existen en el comercio.",
+                "description": "<p>Servicio que devuelve la toda la informacion de los proveedores existentes en el comercio.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los proveedeores del comercio?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_provedorees": 1,
+                                    "nombre": "provedor 1",
+                                    "direccion": "Calle benito Juarez #45",
+                                    "telefono": 9512665478
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Proveedores"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [{
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }]
+            }
+        },
+        "/api/proveedores/insertarProveedor": {
+            "post": {
+                "summary": "Agregando nuevo proveedor",
+                "operationId": "create",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "Proveedor",
+                        "in": "body",
+                        "description": "Proveedor agregado",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoProveedor"
+                        }
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ],
+                "tags": ["Proveedores"],
+                "responses": {
+                    "200": {
+                        "description": "Proveedor insertado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/proveedores/obtenerProveedor/{id}": {
+            "get": {
+                "tags": ["Proveedores"],
+                "summary": "Informacion asociada al proveedor si es que existe en el comercio",
+                "description": "<p>Servicio que devuelve la información detallada del proveedor soliciado</p><p>&nbsp;</p><p><em><strong>¿Cuál es el proveedor de este id?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_tipo": 2,
+                                    "nombre_tipo": "flor"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Proveedor"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del proveedor",
+                        "type": "number",
+                        "default": "3"
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ]
+            }
+        },
+        "/api/proveedores/actualizarProveedor/{id}": {
+            "put": {
+                "summary": "Actualizar la informaciòn del proveedor del comercio",
+                "description": "<p>Servicio que permite editar la informaciòn del proveedor del comercio, a travez del id el mismo </p><p>&nbsp;</p>",
+                "operationId": "update",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del proveedor",
+                        "type": "number",
+                        "default": "4"
+                    },
+                    {
+                        "name": "Proveedor",
+                        "in": "body",
+                        "description": "Nombre del proveedor",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoProveedor"
+                        }
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ],
+                "tags": ["Proveedores"],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/proveedores/eliminarProveedor/{id}": {
+            "delete": {
+                "tags": ["Proveedores"],
+                "summary": "Eliminar un proveedor del comercio a travez de su identificador",
+                "description": "<p>Servicio que elimina un proveedor dado el identificador enviado</p><p>&nbsp;</p><p><em><strong>¿Fué una ejecución exitosa?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del proveedor",
+                        "type": "number",
+                        "default": "6"
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ]
+            }
+        },
+        "/api/inventario/MostrarInventario/": {
+            "get": {
+                "tags": ["Inventario"],
+                "summary": "Listado del inventario que existe en el comercio",
+                "description": "<p>Servicio que devuelve toda la informacion de los productos dados de alta en el comercio.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los productos que hay en el inventario del comercio?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_inventario": 1,
+                                    "producto_id": 1,
+                                    "cantidad": 14,
+                                    "ubicacion": "anaquel #2"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/ModeloInventario"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [{
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }]
+            }
+        },
+        "/api/inventario/agregarProductoInventario": {
+            "post": {
+                "summary": "Agregando un Producto",
+                "operationId": "create",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "Producto",
+                        "in": "body",
+                        "description": "Producto agregado exitosamente",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoModeloInventario"
+                        }
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ],
+                "tags": ["Inventario"],
+                "responses": {
+                    "200": {
+                        "description": "El producto fue añadido satisfactoriamente"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/inventario/mostrarProductoInventario/{id}": {
+            "get": {
+                "tags": ["Inventario"],
+                "summary": "Informacion del producto si es que existe en el inventario a travez de su id",
+                "description": "<p>Servicio que devuelve toda la informacion del producto solicitado en el inventario</p><p>&nbsp;</p><p><em><strong>¿Cuál es el producto de este id?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_inventario": 1,
+                                    "producto_id": 1,
+                                    "cantidad": 14,
+                                    "ubicacion": "anaquel #2"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/ModeloInventario"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del prodcuto",
+                        "type": "number",
+                        "default": "1"
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ]
+            }
+        },
+        "/api/inventario/actualizarProducto/{id}": {
+            "put": {
+                "summary": "Actualizar informacion del inventario del comercio",
+                "description": "<p>Servicio que permite cambiar la informacion del inventario del comercio, a travez de su id </p><p>&nbsp;</p>",
+                "operationId": "update",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del producto",
+                        "type": "number",
+                        "default": "4"
+                    },
+                    {
+                        "name": "Producto",
+                        "in": "body",
+                        "description": "Nombre del producto",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/ModeloInventario"
+                        }
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ],
+                "tags": ["Inventario"],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/carrito/MostrarTodosCarritos/": {
+            "get": {
+                "tags": ["Carrito"],
+                "summary": "Listado de todos los carritos que existen en el comercio",
+                "description": "<p>Servicio que devuelve toda la informacion de los caritos existentes en el comercio.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los carritos que hay en el comercio?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "usuario_id": 3,
+                                    "producto_id": 6
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Carritos"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [{
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }]
+            }
+        },
+        "/api/carrito/agregarACarrito": {
+            "post": {
+                "summary": "Agregando un Producto al carrito",
+                "operationId": "create",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "Producto",
+                        "in": "body",
+                        "description": "Producto agregado exitosamente",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Carrito"
+                        }
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ],
+                "tags": ["Carrito"],
+                "responses": {
+                    "200": {
+                        "description": "El producto fue añadido satisfactoriamente"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/carrito/mostrarCarritoUsuario/{id}": {
+            "get": {
+                "tags": ["Carrito"],
+                "summary": "Informacion del carrito que existe en el comercio a travez de su id",
+                "description": "<p>Servicio que devuelve toda la inforcion de un carrito atravez de su id</p><p>&nbsp;</p><p><em><strong>¿Cuál es el id del carrito?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "usuario_id": 3,
+                                    "producto_id": 6
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Carrito"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del usuario",
+                        "type": "number",
+                        "default": "1"
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ]
+            }
+        },
+        "/api/carrito/eliminarProductoDeCarrito/{id_usuario}/{id_producto}": {
+            "delete": {
+                "tags": ["Carrito"],
+                "summary": "Eliminar un producto del carrito  a travez de su identificador",
+                "description": "<p>Servicio que elimina un producto del carrito a travez de su identificador enviado</p><p>&nbsp;</p><p><em><strong>¿Fué una ejecución exitosa?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id_usuario",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del usuario",
+                        "type": "number",
+                        "default": "8"
+                    },
+                    {
+                        "name": "id_producto",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del producto a eliminar",
+                        "type": "number",
+                        "default": "8"
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ]
+            }
+        },
+        "/api/ventas/mostrarVentas/": {
+            "get": {
+                "tags": ["Ventas"],
+                "summary": "Listado de todas las ventas existentes en el comercio.",
+                "description": "<p>Servicio que devuelve la información detallada de todas las ventas que existen en el comercio.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son las ventas que existen en el comercio?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_sale": 1,
+                                    "usuario_id": 2,
+                                    "PrecioProducto": 856,
+                                    "Datos": "2023-12-10 01:50:20"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Ventas"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [{
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }]
+            }
+        },
+        "/api/ventas/agregarVenta": {
+            "post": {
+                "summary": "Agregando Nueva Venta",
+                "operationId": "create",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "Venta",
+                        "in": "body",
+                        "description": "Venta agregada con exito",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevaVenta"
+                        }
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ],
+                "tags": ["Ventas"],
+                "responses": {
+                    "200": {
+                        "description": "Venta Agregada"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/ventas/mostrarVentasUsuario/{id}": {
+            "get": {
+                "tags": ["Ventas"],
+                "summary": "Muestra las compras que hizo un usuario a travez de su id",
+                "description": "<p>Servicio que devuelve la información detallada de las ventas del usaurio a travez del usuario</p><p>&nbsp;</p><p><em><strong>¿Cules son las ventas de este usuario?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_sale": 1,
+                                    "usuario_id": 2,
+                                    "PrecioProducto": 856,
+                                    "Datos": "2023-12-10 01:50:20"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Venta"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del usuario",
+                        "type": "number",
+                        "default": "4"
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ]
+            }
+        },
+        "/api/ventas/mostrarProductosPorVenta/{id_venta}": {
+            "get": {
+                "tags": ["Ventas"],
+                "summary": "Muestra los productos a travez del id de la venta",
+                "description": "<p>Servicio que devuelve la información detallada de los productos a travez de su id</p><p>&nbsp;</p><p><em><strong>¿Cuál son los productos que pertenecen a este id?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_sale": 1,
+                                    "usuario_id": 2,
+                                    "producto_id": 1,
+                                    "precio": 600
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Usuarios_Sale"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id_venta",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador de la venta",
+                        "type": "number",
+                        "default": "4"
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ]
+            }
+        },
+        "/api/ventas/mostrarProductosVendidos/": {
+            "get": {
+                "tags": ["Ventas"],
+                "summary": "Listado de todos los usuarios existentes en el comercio.",
+                "description": "<p>Servicio que devuelve la información detallada de todos los productos vendidos en el comercio.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los productos vendidos  en el comercio?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_sale": 1,
+                                    "usuario_id": 2,
+                                    "producto_id": 1,
+                                    "precio": 600
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Usuarios_Sale"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [{
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }]
+            }
+        }
+    },
+    "definitions": {
+        "Usuario": {
+            "type": "object",
+            "properties": {
+                "id_usuario": {
+                    "type": "number",
+                    "description": "Codigo que permite identificar al usuario"
+                },
+                "nombre": {
+                    "type": "string",
+                    "description": "Nombre del usuario"
+                },
+                "correo": {
+                    "type": "string",
+                    "description": "Correo del usuario"
+                },
+                "password": {
+                    "type": "string",
+                    "description": "Contrasena del usuario"
+                },
+                "TipoUsuario": {
+                    "type": "number",
+                    "description": "Codigo que permite identificar el rol del usuario"
+                }
+            }
+        },
+        "Usuarios": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Usuario"
+            }
+        },
+        "NuevoUsuario": {
+            "type": "object",
+            "properties": {
+                "nombre": {
+                    "type": "string",
+                    "description": "Nombre del usuario"
+                },
+                "correo": {
+                    "type": "string",
+                    "description": "Correo del usuario"
+                },
+                "password": {
+                    "type": "string",
+                    "description": "Contrasena del usuario"
+                },
+                "TipoUsuario": {
+                    "type": "number",
+                    "description": "Codigo que permite identificar el rol del usuario"
+                }
+            }
+        },
+        "Producto": {
+            "type": "object",
+            "properties": {
+                "id_producto": {
+                    "type": "number",
+                    "description": "Id del producto"
+                },
+                "nombre": {
+                    "type": "string",
+                    "description": "Nombre del producto"
+                },
+                "descripcion": {
+                    "type": "string",
+                    "description": "Breve descripcion del producto"
+                },
+                "precio": {
+                    "type": "number",
+                    "description": "Precio del producto"
+                },
+                "cantidad": {
+                    "type": "number",
+                    "description": "Stock del producto"
+                },
+                "proveedor_id": {
+                    "type": "number",
+                    "description": "Id del proveedor del producto"
+                }
+            }
+        },
+        "Productos": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Producto"
+            }
+        },
+        "NuevoProducto": {
+            "type": "object",
+            "properties": {
+                "nombre": {
+                    "type": "string",
+                    "description": "Nombre del producto"
+                },
+                "descripcion": {
+                    "type": "string",
+                    "description": "descripcion del producto"
+                },
+                "precio": {
+                    "type": "number",
+                    "description": "Precio del producto"
+                },
+                "cantidad": {
+                    "type": "number",
+                    "description": "stock del producto"
+                },
+                "proveedor_id": {
+                    "type": "number",
+                    "description": "Id del proveedor del producto"
+                }
+            }
+        },
+        "TipoUsuario": {
+            "type": "object",
+            "properties": {
+                "id_tipo": {
+                    "type": "number",
+                    "description": "Codigo que permite identificar al tipo de usuario"
+                },
+                "tipo": {
+                    "type": "string",
+                    "description": "Nombre del tipo de usuario"
+                }
+            }
+        },
+        "TiposUsuarios": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/TipoUsuario"
+            }
+        },
+        "NuevoTipoUsuario": {
+            "type": "object",
+            "properties": {
+                "tipo": {
+                    "type": "string",
+                    "description": "Nombre del rol de usuario"
+                }
+            }
+        },
+        "Proveedor": {
+            "type": "object",
+            "properties": {
+                "id_proveedorees": {
+                    "type": "string",
+                    "description": "id del proveedor"
+                },
+                "nombre": {
+                    "type": "string",
+                    "description": "Nombre del proveedor"
+                },
+                "direccion": {
+                    "type": "string",
+                    "description": "Direccion del proveedor"
+                },
+                "telefono": {
+                    "type": "number",
+                    "description": "Telefono del proveedor    "
+                }
+            }
+        },
+        "Proveedores": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Proveedor"
+            }
+        },
+        "NuevoProveedor": {
+            "type": "object",
+            "properties": {
+                "nombre": {
+                    "type": "string",
+                    "description": "Nombre del proveedor"
+                },
+                "direccion": {
+                    "type": "string",
+                    "description": "direccion del provedor"
+                },
+                "telefono": {
+                    "type": "number",
+                    "description": "Telefono del proveedor"
+                }
+            }
+        },
+        "ModeloInventario": {
+            "type": "object",
+            "properties": {
+                "id_inventario": {
+                    "type": "number",
+                    "description": "identificador del inventario"
+                },
+                "producto_id": {
+                    "type": "number",
+                    "description": "identificador del producto"
+                },
+                "cantidad": {
+                    "type": "number",
+                    "description": "stock del producto"
+                },
+                "ubicacion": {
+                    "type": "string",
+                    "description": "en que anaquel se encuantra el producto"
+                }
+            }
+        },
+        "NuevoModeloInventario": {
+            "type": "object",
+            "properties": {
+                "producto_id": {
+                    "type": "number",
+                    "description": "identificador del producto"
+                },
+                "cantidad": {
+                    "type": "number",
+                    "description": "stock del producto"
+                },
+                "ubicacion": {
+                    "type": "string",
+                    "description": "en que anaquel se encuantra el producto"
+                }
+            }
+        },
+        "Carrito": {
+            "type": "object",
+            "properties": {
+                "usuario_id": {
+                    "type": "number",
+                    "description": "identificador del usario de su carrito"
+                },
+                "producto_id": {
+                    "type": "number",
+                    "description": "identificador del producto del carrito"
+                }
+            }
+        },
+        "Carritos": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Carrito"
+            }
+        },
+        "Venta": {
+            "type": "object",
+            "properties": {
+                "id_sale": {
+                    "type": "number",
+                    "description": "identificador de la compra(sale)"
+                },
+                "usuario_id": {
+                    "type": "number",
+                    "description": "identificador del usuario que va realizar la compra "
+                },
+                "PrecioProducto": {
+                    "type": "number",
+                    "description": "Precio del producto que se va comprar"
+                },
+                "Datos": {
+                    "type": "string",
+                    "description": "Fecha en que se hace la compra"
+                }
+            }
+        },
+        "Ventas": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Venta"
+            }
+        },
+        "NuevaVenta": {
+            "type": "object",
+            "properties": {
+                "usuario_id": {
+                    "type": "number",
+                    "description": "identificador del usuario que va realizar la compra"
+                },
+                "PrecioProducto": {
+                    "type": "number",
+                    "description": "Precio del producto que se va comprar"
+                },
+                "Datos": {
+                    "type": "string",
+                    "description": "Fecha en se hace la compra"
+                }
+            }
+        },
+        "Usuarios_Sale": {
+            "type": "object",
+            "properties": {
+                "id_sale": {
+                    "type": "number",
+                    "description": "identificador de la venta realizada"
+                },
+                "usuario_id": {
+                    "type": "number",
+                    "description": "identificador del usuario que hizo la compra"
+                },
+                "producto_id": {
+                    "type": "number",
+                    "description": "identificador del producto que se compro"
+                },
+                "precio": {
+                    "type": "number",
+                    "description": "Precio del producto que se compro"
+                }
+            }
+        }
+    }
+}
